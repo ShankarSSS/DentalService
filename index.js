@@ -19,8 +19,16 @@ restService.use(
 restService.use(bodyParser.json());
 
 restService.post("/echo", function(req, res) {
-  return res.json({ 'fulfillmentText': 'Success' });
  
+   const agent = new WebhookClient({ request, response });
+
+  function makeAppointment (agent) {
+   return res.json({ 'fulfillmentText': 'SuccessShankar' });
+  }
+  
+  let intentMap = new Map();
+  intentMap.set('Make Appointment', makeAppointment);  // It maps the intent 'Make Appointment' to the function 'makeAppointment()'
+  agent.handleRequest(intentMap);
 
 });
 
