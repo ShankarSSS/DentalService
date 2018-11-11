@@ -2,6 +2,7 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const {WebhookClient} = require('dialogflow-fulfillment');
 
 const restService = express();
 
@@ -15,12 +16,19 @@ restService.use(bodyParser.json());
 
 restService.post("/echo", function(req, res) {
   var speech =
-    req.body.result &&
-    req.body.result.parameters &&
+    req.body.queryResult &&
+    req.body.queryResult.parameters &&
     req.body.result.parameters.echoText
       ? req.body.result.parameters.echoText
       : "Seems like some problem. Speak again.";
  
+  // Get the date for the weather forecast (if present)
+  let date = '';
+  if (req.body.queryResult.parameters['date']) {
+    date = req.body.queryResult.parameters['date'];
+    console.log('Date: ' + date);
+  }
+  
   return res.json({ 'fulfillmentText': 'Shankarnath' });
   
 });
