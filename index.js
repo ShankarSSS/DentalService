@@ -18,14 +18,9 @@ restService.use(
 
 restService.use(bodyParser.json());
 
-restService.post("/echo", function(req, res) {
+restService.post("/echo", function(request, response) {
  
-  
-
-});
-
-exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
-  const agent = new WebhookClient({ request, response });
+   const agent = new WebhookClient({ request, response });
 
   function makeAppointment (agent) {
       agent.add(`Got it. I have your appointment scheduled. See you soon. Good-bye.`);
@@ -33,7 +28,10 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
   let intentMap = new Map();
   intentMap.set('Make Appointment', makeAppointment);  // It maps the intent 'Make Appointment' to the function 'makeAppointment()'
   agent.handleRequest(intentMap);
+
 });
+
+
 
 
 // A helper function that receives Dialogflow's 'date' and 'time' parameters and creates a Date instance.
