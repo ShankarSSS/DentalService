@@ -2,7 +2,7 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
-
+const {WebhookClient} = require('dialogflow-fulfillment');
 
 const restService = express();
 
@@ -16,24 +16,8 @@ restService.use(bodyParser.json());
 
 restService.post("/echo", function(req, res) {
   
-  const agent = new WebhookClient({ request, response });
-
-  function makeAppointment (agent) {
-    // Use the Dialogflow's date and time parameters to create Javascript Date instances, 'dateTimeStart' and 'dateTimeEnd',
-    // which are used to specify the appointment's time.
-    const appointmentDuration = 1;// Define the length of the appointment to be one hour.
-    const dateTimeStart = convertParametersDate(agent.parameters.date, agent.parameters.time);
-    const dateTimeEnd = addHours(dateTimeStart, appointmentDuration);
-    const appointmentTimeString = getLocaleTimeString(dateTimeStart);
-    const appointmentDateString = getLocaleDateString(dateTimeStart);
-   return res.json({ 'fulfillmentText': 'Success' });
-  }
-  let intentMap = new Map();
-  intentMap.set('Make Appointment', makeAppointment);  // It maps the intent 'Make Appointment' to the function 'makeAppointment()'
-  agent.handleRequest(intentMap);
-});
   
- 
+ return res.json({ 'fulfillmentText': 'Success string' });
   
 });
 
