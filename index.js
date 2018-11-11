@@ -20,7 +20,11 @@ restService.use(bodyParser.json());
 
 restService.post("/echo", function(req, res) {
  
-  exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
+  
+
+});
+
+exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
   const agent = new WebhookClient({ request, response });
 
   function makeAppointment (agent) {
@@ -29,8 +33,6 @@ restService.post("/echo", function(req, res) {
   let intentMap = new Map();
   intentMap.set('Make Appointment', makeAppointment);  // It maps the intent 'Make Appointment' to the function 'makeAppointment()'
   agent.handleRequest(intentMap);
-});
-
 });
 
 
