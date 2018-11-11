@@ -21,9 +21,35 @@ restService.use(bodyParser.json());
 restService.post("/echo", function(request, response) {
  
    const agent = new WebhookClient({ request, response });
+  
 
   function makeAppointment (agent) {
-      agent.add(`Got it. I have your appointment scheduled. See you soon. Good-bye.`);
+    // Use the Dialogflow's date and time parameters to create Javascript Date instances, 'dateTimeStart' and 'dateTimeEnd',
+    // which are used to specify the appointment's time.
+    const appointmentDuration = 1;// Define the length of the appointment to be one hour.
+    const dateTimeStart = convertParametersDate(agent.parameters.date, agent.parameters.time);
+    const dateTimeEnd = addHours(dateTimeStart, appointmentDuration);
+    const appointmentTimeString = getLocaleTimeString(dateTimeStart);
+    const appointmentDateString = getLocaleDateString(dateTimeStart);
+    
+    $.ajax( { url: "https://api.mlab.com/api/1/databases/demo-dental/collections/appointments?apiKey=s3YVnxYQsmC5SOU_Iox9eYfNxbOTrMeG",
+		  data: JSON.stringify(
+        { 
+          "Name" : '',
+          "AppointmentDate" : agent.parameters.date,
+          "AppointmentStart": dateTimeStart,
+          "AppointmentEnd": dateTimeEnd
+        } ),
+		  type: "POST",
+      contentType: "application/json",
+      success:function(data){
+           agent.add(`Got it. I have your appointment scheduled on ${appointmentDateString} at ${appointmentTimeString}. See you soon. Good-bye.`);
+      },
+      error:function(xhr,status,err){
+       agent.add(`Sorry, we're booked not able to book. Is there anything else I can do for you?`);
+      }
+    } );
+    
   }
   let intentMap = new Map();
   intentMap.set('Make Appointment', makeAppointment);  // It maps the intent 'Make Appointment' to the function 'makeAppointment()'
