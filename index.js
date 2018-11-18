@@ -32,7 +32,7 @@ restService.post("/echo", function(request, response) {
     const appointmentTimeString = getLocaleTimeString(dateTimeStart);
     const appointmentDateString = getLocaleDateString(dateTimeStart);
     
-    $.ajax( { url: "https://api.mlab.com/api/1/databases/demo-dental/collections/appointments?apiKey=s3YVnxYQsmC5SOU_Iox9eYfNxbOTrMeG",
+    $.ajax( { url: "https://api.mlab.com/api/1/dat",
 		  data: JSON.stringify(
         { 
           "Name" : '',
