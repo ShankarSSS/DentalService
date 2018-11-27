@@ -24,7 +24,7 @@ restService.use(bodyParser.json());
 const timeZone = 'Asia/Calcutta';  // Change it to your time zone
 const timeZoneOffset = '+05:30';  
 
-//var result='';
+
 
 restService.post("/", function(request, response) {
  
