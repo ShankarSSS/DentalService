@@ -1,19 +1,18 @@
 {
-  "name": "webhook-echo-sample",
+  "name": "dental-services",
   "version": "1.0.0",
-  "description": "Webhook echo sample",
+  "description": "dental-services-app",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "author": "Sunil Syal",
+  "author": "Shankarnath",
   "dependencies": {
-    "body-parser": "^1.15.0",
-    "express": "^4.13.4",
-    "firebase-functions": "^2.0.2",
-    "firebase-admin": "^5.13.1",
-    "googleapis": "^27.0.0",
     "actions-on-google": "2.2.0",
-    "dialogflow-fulfillment": "0.5.0"
+    "body-parser": "^1.15.0",
+    "dialogflow-fulfillment": "0.5.0",
+    "express": "^4.13.4",
+    "googleapis": "^27.0.0",
+    "request": "^2.88.0"
   }
 }
