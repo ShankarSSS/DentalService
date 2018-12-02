@@ -111,6 +111,8 @@ restService.post("/", function(request, response) {
     //productList = productList.slice(0,productList.length-1)
     agent.add(appointmentList);
 
+    agent.handleRequest(intentMap);    
+  });  
   }
   
 function SetAppointment(intentMap){
