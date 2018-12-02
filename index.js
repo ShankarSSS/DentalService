@@ -158,7 +158,7 @@ function SetAppointment(intentMap){
       {
         agent.add('Sorry, we are booked on '+appointmentDateString+' at '+appointmentTimeString);
       }
-      else if(response.body.Message=='Already Booked'){
+      else if(response.body.Message=='Success'){
         agent.add('Dear '+agent.parameters.name+ ', your appointment scheduled on '+ appointmentDateString +' at '+ appointmentTimeString +'. See you soon. Good-bye');
       }
       else{
