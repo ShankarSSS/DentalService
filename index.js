@@ -208,6 +208,6 @@ function getLocaleDateString(dateObj){
 }
 
 
-restService.listen(8000, function() {
-  console.log("Server up and listening 8000");
+restService.listen(process.env.PORT  || 8000, function() {
+  console.log("Server up and listening");
 });
