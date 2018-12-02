@@ -100,7 +100,10 @@ restService.post("/", function(request, response) {
          // Since dynamic, use [] since the key isn't literally named "keyVal"
           var obj = objectsOfObjects[keyVal]; 
           // NOW you can treat it like an obj
-          appointmentList += 'Patient Name : '+obj.name+', Appointment Date & Time : '+obj.appointment_start_date +',';
+          var appointmentTimeString = getLocaleTimeString(obj.appointment_start_date);
+          var appointmentDateString = getLocaleDateString(obj.appointment_start_date);
+
+          appointmentList += 'Patient Name : '+obj.name+', Date & Time : '+appointmentDateString +' '+ appointmentTimeString +'<br>';
           //agent.add(new Suggestion(obj.name));
         }
     }
@@ -156,10 +159,10 @@ function SetAppointment(intentMap){
       }
       if(response.statusCode==200)
       {
-        agent.add('Sorry, we are booked on '+appointmentDateString+' at '+appointmentTimeString);
+        agent.add('Dear '+agent.parameters.name+ ', your appointment scheduled on '+ appointmentDateString +' at '+ appointmentTimeString +'. See you soon. Good-bye');
       }
       else if(response.statusCode==409){
-        agent.add('Dear '+agent.parameters.name+ ', your appointment scheduled on '+ appointmentDateString +' at '+ appointmentTimeString +'. See you soon. Good-bye');
+        agent.add('Sorry, we are booked on '+appointmentDateString+' at '+appointmentTimeString);
       }
       else{
         agent.add('Sorry, booking failed');
