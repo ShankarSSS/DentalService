@@ -103,7 +103,7 @@ restService.post("/", function(request, response) {
           var appointmentTimeString = getLocaleTimeString(new Date(obj.appointment_start_date));
           var appointmentDateString = getLocaleDateString(new Date(obj.appointment_start_date));
 
-          appointmentList += 'Patient Name : '+obj.name+', Date & Time : '+appointmentDateString +' '+ appointmentTimeString +'<br>';
+          appointmentList += 'Patient Name : '+obj.name+', Date & Time : '+appointmentDateString +', '+ appointmentTimeString +'<br>';
           //agent.add(new Suggestion(obj.name));
         }
     }
@@ -111,8 +111,6 @@ restService.post("/", function(request, response) {
     //productList = productList.slice(0,productList.length-1)
     agent.add(appointmentList);
 
-    agent.handleRequest(intentMap);    
-  });  
   }
   
 function SetAppointment(intentMap){
@@ -170,7 +168,7 @@ function SetAppointment(intentMap){
       agent.handleRequest(intentMap);  
   });    
 }
-
+//intent
   let intentMap = new Map();
   if (agent.intent == 'Make Appointment') {
     intentMap.set('Make Appointment', makeAppointment);  // It maps the intent 'Make Appointment' to the function 'makeAppointment()'
