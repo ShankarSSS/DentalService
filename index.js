@@ -116,14 +116,25 @@ function SetAppointment(intentMap){
  // Use the Dialogflow's date and time parameters to create Javascript Date instances, 'dateTimeStart' and 'dateTimeEnd',
     // which are used to specify the appointment's time.
     const appointmentDuration = 1;// Define the length of the appointment to be one hour.
-    const dateTimeStart = convertParametersDate(agent.parameters.date, agent.parameters.time);
-    const dateTimeEnd = addHours(dateTimeStart, appointmentDuration);
-    const appointmentTimeString = getLocaleTimeString(dateTimeStart);
-    const appointmentDateString = getLocaleDateString(dateTimeStart);
+    var dateTimeStart = convertParametersDate(agent.parameters.date, agent.parameters.time);
+    var dateTimeEnd = addHours(dateTimeStart, appointmentDuration);
+    var appointmentTimeString = getLocaleTimeString(dateTimeStart);
+    var appointmentDateString = getLocaleDateString(dateTimeStart);
 
     var currentDateTime = new Date().toLocaleString('en-US', {
       timeZone: timeZone
     });
+
+    var dateTimeStartConverted = new Date(dateTimeStart).toLocaleString('en-US', {
+      timeZone: timeZone
+    });
+
+    var dateTimeEndConverted = new Date(dateTimeEnd).toLocaleString('en-US', {
+      timeZone: timeZone
+    });
+
+    // console.log(dateTimeStartConverted);
+    // console.log(currentDateTime);
 
     Request.post({
       "headers": { "content-type": "application/json" },
@@ -133,9 +144,9 @@ function SetAppointment(intentMap){
           "mobile":agent.parameters.phoneNumber,
           "email":"shankar@gmail.com",
           "source":"",
-          "appointment_date":agent.parameters.date,
-          "appointment_start_date":dateTimeStart,
-          "appointment_end_date":dateTimeEnd,
+          "appointment_date":dateTimeStartConverted,
+          "appointment_start_date":dateTimeStartConverted,
+          "appointment_end_date":dateTimeEndConverted,
           "created_date":currentDateTime,
           "created_by":""
       })
@@ -143,8 +154,16 @@ function SetAppointment(intentMap){
       if(error) {
           return console.dir(error);
       }
-      //console.dir(JSON.parse(body));
-      agent.add('Dear '+agent.parameters.name+ ', your appointment scheduled on '+ appointmentDateString +' at '+ appointmentDateString +'. See you soon. Good-bye');
+      if(response.body.Message=='Already Booked')
+      {
+        agent.add('Sorry, we are booked on '+appointmentDateString+' at '+appointmentTimeString);
+      }
+      else if(response.body.Message=='Already Booked'){
+        agent.add('Dear '+agent.parameters.name+ ', your appointment scheduled on '+ appointmentDateString +' at '+ appointmentTimeString +'. See you soon. Good-bye');
+      }
+      else{
+        agent.add('Sorry, booking failed');
+      }
       agent.handleRequest(intentMap);  
   });    
 }
