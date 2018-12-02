@@ -100,10 +100,10 @@ restService.post("/", function(request, response) {
          // Since dynamic, use [] since the key isn't literally named "keyVal"
           var obj = objectsOfObjects[keyVal]; 
           // NOW you can treat it like an obj
-          var appointmentTimeString = getLocaleTimeString(new Date(obj.appointment_start_date));
-          var appointmentDateString = getLocaleDateString(new Date(obj.appointment_start_date));
-
-          appointmentList += 'Name : '+obj.name+', Date & Time : '+appointmentDateString +', '+ appointmentTimeString +'\r\n';
+          // var appointmentTimeString = getLocaleTimeString(new Date(obj.appointment_start_date));
+          // var appointmentDateString = getLocaleDateString(new Date(obj.appointment_start_date));
+          appointmentList += 'Name : '+obj.name+', Date & Time : '+ obj.appointment_start_date +'\r\n';
+          // appointmentList += 'Name : '+obj.name+', Date & Time : '+appointmentDateString +', '+ appointmentTimeString +'\r\n';
           //agent.add(new Suggestion(obj.name));
         }
     }
