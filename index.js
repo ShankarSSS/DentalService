@@ -103,7 +103,7 @@ restService.post("/", function(request, response) {
           var appointmentTimeString = getLocaleTimeString(new Date(obj.appointment_start_date));
           var appointmentDateString = getLocaleDateString(new Date(obj.appointment_start_date));
 
-          appointmentList += 'Patient Name : '+obj.name+', Date & Time : '+appointmentDateString +', '+ appointmentTimeString +'<br>';
+          appointmentList += 'Name : '+obj.name+', Date & Time : '+appointmentDateString +', '+ appointmentTimeString +'\r\n';
           //agent.add(new Suggestion(obj.name));
         }
     }
